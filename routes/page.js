@@ -6,6 +6,7 @@ const state = ServerState.getInstance();
 const router = express.Router();
 const fs = require("fs");
 const configure = require('../configure.json');
+const path = require('path');
 
 router.use((req, res, next) => {
     res.locals.model = null;
@@ -48,7 +49,7 @@ router.get('/', (req, res, next) => {
 const requestCreate = async (query) => {
     var args = ['ml/train.py'];
     args = parser.createParameter(args, query);
-    const { spawn, spawnSync } = require('child_process');
+    const { spawn } = require('child_process');
     const pyprocess = spawn('python', args);
     message = null;
     pyprocess.stdout.on('data', (data) => {
@@ -124,7 +125,7 @@ router.get('/api/v1/:id/inference', async (req, res) => {
     const jsonFile = fs.readFileSync(targetFolder + "inference.json");
     const jsonData = JSON.parse(jsonFile);
 
-    test_image = jsonData.grad_cam.heatmap[0]
+    test_image = path.resolve(jsonData.grad_cam.heatmap[0])
     console.log(test_image);
 
     res.sendFile(test_image);
@@ -148,7 +149,7 @@ router.get('/api/v1/:id/requestInference', async (req, res) => {
 })
 
 router.get('/api/v1/image/:id/:image', async (req, res) => {
-    const targetPath = `/opt/ml/code/web_projects/ui_ml/ml/models/${req.params.id}/${req.params.image}`;
+    const targetPath = `ml/models/${req.params.id}/${req.params.image}`;
     console.log(targetPath);
     res.sendFile(targetPath);
 })

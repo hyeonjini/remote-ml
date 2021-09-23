@@ -6,7 +6,8 @@ ml/data/*
 ml/models/*
 !/ml/models/.keep
 
-
+# package
+package-lock.json
 # Logs
 
 logs

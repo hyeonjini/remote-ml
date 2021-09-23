@@ -10,7 +10,7 @@ const pageRouter = require('./routes/page');
 const app = express();
 
 app.set('port', process.env.PROT || 6006); //tensorboard port 임시 사용
-app.set('host', process.env.HOST || '0.0.0.0');
+app.set('host', process.env.HOST || '127.0.0.1');
 app.set('view engine', 'html');
 nunjucks.configure('views', {
 	express: app,
