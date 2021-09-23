@@ -1,10 +1,10 @@
 # folder
 ml/.ipynb_checkpoints
 ml/__pycache__
-!ml/data
 ml/data/*
-!ml/models
+!ml/data
 ml/models/*
+!ml/models
 
 # Logs
 
