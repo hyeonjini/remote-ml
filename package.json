@@ -1,0 +1,23 @@
+{
+  "name": "ui-ml",
+  "version": "1.0.0",
+  "description": "ML on Web",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "T2234",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nunjucks": "^3.2.3",
+    "socket.io": "^4.2.0",
+    "state-toggle": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!-- main content -->
+<main>
+    <div class="container-fludi px-4">
+        <h1 class="mt-3 mb-3">Trained Model List</h1>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold">models</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>task</th>
+                                <th>acc</th>
+                                <th>loss</th>
+                                <th>state</th>
+                                <th>inference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for model in models %}
+                            <tr>
+                                <td>{{model.id}}</td>
+                                <td>{{model.name}}</td>
+                                <td>{{model.task}}</td>
+                                <td>{{model.acc}}</td>
+                                <td>{{model.loss}}</td>
+                                <td>{{model.state}}</td>
+                                {% if model.inference == true %}
+                                <td><a href="/api/v1/{{model.id}}/inference" class="btn btn-info">details</a></td>
+                                {% else %}
+                                <td><a href="/api/v1/{{model.id}}/requestInference" class="btn btn-warning">inference</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

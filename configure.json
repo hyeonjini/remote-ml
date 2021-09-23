@@ -1,0 +1,7 @@
+{
+    "Net":["VGG11", "VGG19", "ResNet18", "ResNet34", "ResNet50", "BaseCNN"],
+    "Dataset":["MNIST", "FashionMNIST", "CIFAR10", "QuickDraw"],
+    "Augmentation":["BaseAugmentation", "CustomAugmentation"],
+    "Criterion":["CrossEntropy", "BinarayCrossEntropy", "MSE", "MAE", "F1", "LabelSmoothing"],
+    "Optimizer":["Adam", "AdamW", "SGD"]
+}

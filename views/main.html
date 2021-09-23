@@ -1,0 +1,241 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!-- main content -->
+<main>
+    <div class="container-fludi px-4">
+        <h1 class="mt-3 mb-3">Create Models</h1>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">Module State</div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="dots d-flex flex-row-reverse">
+                                <div class="dot text-success ms-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8"/>
+                                    </svg>
+                                </div>
+                                <div class="dot text-warning ms-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8"/>
+                                    </svg>
+                                </div>
+                                <div class="dot text-danger ms-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4" id="hparamForm">
+            <div class="card-header">Hyperparameter</div>
+            
+                <div class="card-body">
+                    <form id="create-model-form" action="/api/v1/requestCreate" method="get">
+                        <div class="row">
+                            <div class="col-md-6 ml-md-auto">
+                                <!-- model -->
+                                Net
+                                <select class="form-select form-select-sm mb-3" name="modelSelect">
+                                    {% for net in configure.Net %}
+                                        {% if loop.index == 1 %}
+                                            <option selected>{{net}}</option>
+                                        {% else %}
+                                            <option value={{net}}>{{net}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <!-- dataset -->
+                                Dataset
+                                <select class="form-select form-select-sm mb-3" name="datasetSelect">
+                                    {% for dataset in configure.Dataset %}
+                                        {% if loop.index == 1 %}
+                                            <option selected>{{dataset}}</option>
+                                        {% else %}
+                                            <option value={{dataset}}>{{dataset}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <!-- augmentation -->
+                                Augmentation
+                                <select class="form-select form-select-sm mb-3" name="augmentationSelect">
+                                    {% for augmentation in configure.Augmentation %}
+                                        {% if loop.index == 1 %}
+                                            <option selected>{{augmentation}}</option>
+                                        {% else %}
+                                            <option value={{augmentation}}>{{augmentation}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <!-- criterion -->
+                                Criterion
+                                <select class="form-select form-select-sm mb-3" name="criterionSelect">
+                                    {% for criterion in configure.Criterion %}
+                                        {% if loop.index == 1 %}
+                                            <option selected>{{criterion}}</option>
+                                        {% else %}
+                                            <option value={{criterion}}>{{criterion}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <!-- optimizer -->
+                                Optimizer
+                                <select class="form-select form-select-sm mb-3" name="optimizerSelect">
+                                    {% for optimizer in configure.Optimizer %}
+                                        {% if loop.index == 1 %}
+                                            <option selected>{{optimizer}}</option>
+                                        {% else %}
+                                            <option value={{optimizer}}>{{optimizer}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 ml-md-auto">
+                                <div class="row">
+                                    <div class="col-md-6 ml-md-auto">
+                                        <!-- batch size -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputBatchSize">Batch Size</label>
+                                            <input type="text" class="form-control" name="batchSize" value="256">
+                                        </div>
+                                        <!-- epochs -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputEpochs">Epochs</label>
+                                            <input type="text" class="form-control" name="epochs" value="10">
+                                        </div>
+                                        <!-- val ratio -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputValRatio">Val Ratio</label>
+                                            <input type="text" class="form-control" name="valRatio" value="0.2">
+                                        </div>
+                                        <!-- learning rate -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputLr">Learning rate</label>
+                                            <input type="text" class="form-control" name="learningRate" value="0.0001">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ml-md-auto">
+                                        <!-- lr decay step -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputlrDecayStep">lr decay step</label>
+                                            <input type="text" class="form-control" name="lrDecayStep" value="5">
+                                        </div>
+                                        <!-- log interval -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputLogInterval">Log Interval</label>
+                                            <input type="text" class="form-control" name="logInterval" value="20">
+                                        </div>
+                                        <!-- seed -->
+                                        <div class="form-group mb-3">
+                                            <label for="exampleInputSeed">Seed</label>
+                                            <input type="text" class="form-control" name="seed" value="123">
+                                        </div>
+                                        <!-- Grad CAM -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success btn-lg">Create</button>
+                            <button type="button" class="btn btn-secondary ms-1 btn-lg">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <div class="card shadow mb-4">
+            <div class="card-header">Current training <img id="runingCircle" src="assets/img/icons8-spinner2.gif" style="width: 25px;"></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="trainAccChart" width="100%" height="30"></canvas>
+                    </div>
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="trainLossChart" width="100%" height="30"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="valAccChart" width="100%" height="30"></canvas>
+                    </div>
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="valLossChart" width="100%" height="30"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- chart -->
+
+{% endblock %}
+{% block script %}
+<script src="/js/trainingChart.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    const setView = (state) => {
+        const runingCircle = document.getElementById("runingCircle");
+        const hparamForm = document.getElementById("hparamForm");
+        console.log(state);
+        if (state){ // on running
+            runingCircle.style.display = "none";
+            hparamForm.style.display="";
+        }else{
+            runingCircle.style.display = "";
+            hparamForm.style.display="none";
+        }
+    }
+    const onRuning = () => {
+        axios.get(`/api/v1/get/currentState`)
+        .then((data) =>{
+            setView(data.data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+    }
+    onRuning();
+
+</script>
+<script>
+    // var trainAccChart = drawChart("trainAccChart", {"config":{"hparam":{"epochs":0}}}, "train", "acc", []);
+    // var trainLossChart = drawChart("trainLossChart", {"config":{"hparam":{"epochs":0}}}, "train", "loss", []);
+    // var valAccChart = drawChart("valAccChart", {"config":{"hparam":{"epochs":0}}}, "valid", "acc", []);
+    // var valLossChart = drawChart("valLossChart", {"config":{"hparam":{"epochs":0}}}, "valid", "loss", []);
+
+    var trainAccChart = null;
+    var trainLossChart = null;
+    var valAccChart = null;
+    var valLossChart = null;
+
+    const socket = io.connect('http://49.50.163.245:6006/', {
+        path: '/socket.io'
+    });
+
+    socket.on('state', (data) => {
+        setView(data);
+    })
+
+    socket.on('update', (data) => {
+        if (trainAccChart == null){
+            trainAccChart = drawChart("trainAccChart", data, "train", "acc", data.train_iter.acc);
+            trainLossChart = drawChart("trainLossChart", data, "train", "loss", data.train_iter.loss);
+            valAccChart = drawChart("valAccChart", data, "valid", "acc", data.val_iter.acc);
+            valLossChart = drawChart("valLossChart", data, "valid", "loss", data.val_iter.loss);
+        }else{
+            updateChart(trainAccChart, data.train_iter.acc);
+            updateChart(trainLossChart, data.train_iter.loss);
+            updateChart(valAccChart, data.val_iter.acc);
+            updateChart(valLossChart, data.val_iter.loss);
+        }
+    });
+
+</script>
+{% endblock %}

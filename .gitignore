@@ -1,4 +1,11 @@
+# folder
+ml/.ipynb_checkpoints
+ml/__pycache__
+ml/data/*
+ml/models/*
+
 # Logs
+
 logs
 *.log
 npm-debug.log*
