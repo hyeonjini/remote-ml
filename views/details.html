@@ -2,14 +2,29 @@
 {% block content %}
 <!-- main content -->
 <main>
-    <ul>
-        {% for name, item in grad_cam %}
-            {{ name }}
-            {% for path in item %}
-                <img src="http://localhost:6006/api/v1/image/{{path}}">
-            {% endfor %}
+    <div class="container-fludi px-4">
+        <h1 class="mt-3 mb-3">Model details</h1>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold">Options</h6>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+        {% for name, item in inference.grad_cam %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold">{{ name }}</h6>
+            </div>
+            <div class="card-body">
+                {% for path in item %}
+                    <img src="http://localhost:6006/api/v1/image/{{path}}">
+                {% endfor %}
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </main>
 {% endblock %}
 

@@ -106,14 +106,19 @@ router.get('/api/v1/:id/details', async (req, res) => {
 
     try{
         const targetFolder = `ml/models/${req.params.id}/`;
-        const jsonFile = await fs.readFileSync(targetFolder + "inference.json");
-        var jsonData = JSON.parse(jsonFile);
+        const configureJsonFile = await fs.readFileSync(targetFolder + "configure.json");
+        const inferJsonFile = await fs.readFileSync(targetFolder + "inference.json");
 
-        console.log(jsonData);
-        res.render('details', jsonData);
+        var configureJsonData = JSON.parse(configureJsonFile);
+        var inferJsonData = JSON.parse(inferJsonFile);
+
+        //console.log(inferJsonData, configureJsonData);
+        res.render('details', {
+            "inference":inferJsonData, 
+            "configure": configureJsonData,
+        });
     }catch (err){
-        console.error(error);
-        next(err);
+        console.error(err);
     }
     
 })
