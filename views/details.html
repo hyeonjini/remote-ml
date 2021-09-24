@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!-- main content -->
+<main>
+    <ul>
+        {% for name, item in grad_cam %}
+            {{ name }}
+            {% for path in item %}
+                <img src="http://localhost:6006/api/v1/image/{{path}}">
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</main>
+{% endblock %}
+
+{% block script %}
+<script>
+
+</script>
+{% endblock %}

@@ -32,7 +32,7 @@
                                 <td>{{model.loss}}</td>
                                 <td>{{model.state}}</td>
                                 {% if model.inference == true %}
-                                <td><a href="/api/v1/{{model.id}}/inference" class="btn btn-info">details</a></td>
+                                <td><a href="/api/v1/{{model.id}}/details" class="btn btn-info">details</a></td>
                                 {% else %}
                                 <td><a href="/api/v1/{{model.id}}/requestInference" class="btn btn-warning">inference</a></td>
                                 {% endif %}

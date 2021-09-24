@@ -84,9 +84,9 @@ def generate_grad_cam(args, configure):
         original_path = os.path.join(model_dir, f'original_{idx}.jpg')
         superimposed_img_path = os.path.join(model_dir, f'blending_{idx}.jpg')
 
-        result["grad_cam"]["blending"].append(superimposed_img_path)
-        result["grad_cam"]["heatmap"].append(heatmap_path)
-        result["grad_cam"]["original"].append(original_path)
+        result["grad_cam"]["blending"].append(os.path.join(configure["config"]["id"], f'blending_{idx}.jpg'))
+        result["grad_cam"]["heatmap"].append(os.path.join(configure["config"]["id"], f'heatmap_{idx}.jpg'))
+        result["grad_cam"]["original"].append(os.path.join(configure["config"]["id"], f'original_{idx}.jpg'))
 
         cv2.imwrite(heatmap_path, heatmap)
         cv2.imwrite(original_path, img)

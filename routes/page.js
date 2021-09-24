@@ -46,23 +46,7 @@ router.get('/', (req, res, next) => {
         next(err);
     }
 });
-const requestCreate = async (query) => {
-    var args = ['ml/train.py'];
-    args = parser.createParameter(args, query);
-    const { spawn } = require('child_process');
-    const pyprocess = spawn('python', args);
-    message = null;
-    pyprocess.stdout.on('data', (data) => {
-        console.log(data.toString());
-        message = data.toString();
-    });
-    pyprocess.stderr.on('data', (data) => { //ml err 
-        console.log(data.toString());
-        message = data.toString();
-    });
 
-    return message;
-} 
 // api
 router.get('/api/v1/requestCreate', (req, res) => {
     if (state.state){
@@ -118,17 +102,20 @@ router.get('/api/v1/getModelList', async (req, res)=>{
     return res.send(models);
 });
 
-router.get('/api/v1/:id/inference', async (req, res) => {
+router.get('/api/v1/:id/details', async (req, res) => {
 
-    console.log(req.params.id);
-    const targetFolder = `ml/models/${req.params.id}/`;
-    const jsonFile = fs.readFileSync(targetFolder + "inference.json");
-    const jsonData = JSON.parse(jsonFile);
+    try{
+        const targetFolder = `ml/models/${req.params.id}/`;
+        const jsonFile = await fs.readFileSync(targetFolder + "inference.json");
+        var jsonData = JSON.parse(jsonFile);
 
-    test_image = path.resolve(jsonData.grad_cam.heatmap[0])
-    console.log(test_image);
-
-    res.sendFile(test_image);
+        console.log(jsonData);
+        res.render('details', jsonData);
+    }catch (err){
+        console.error(error);
+        next(err);
+    }
+    
 })
 router.get('/api/v1/:id/requestInference', async (req, res) => {
 
@@ -149,7 +136,7 @@ router.get('/api/v1/:id/requestInference', async (req, res) => {
 })
 
 router.get('/api/v1/image/:id/:image', async (req, res) => {
-    const targetPath = `ml/models/${req.params.id}/${req.params.image}`;
+    const targetPath = path.resolve(`ml/models/${req.params.id}/${req.params.image}`);
     console.log(targetPath);
     res.sendFile(targetPath);
 })
