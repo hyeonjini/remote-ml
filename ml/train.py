@@ -28,16 +28,12 @@ if __name__ == "__main__":
     parser.add_argument('--lr_decay_step', type=int, default=5, help='learning rate scheduler decay step (default: 5)')
 
     # Container envirionment
-    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/code/web_projects/ui_ml/ml/data'))
-    parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', '/opt/ml/code/web_projects/ui_ml/ml/models'))
+    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', os.path.abspath('ml/data')))
+    parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', os.path.abspath('ml/models')))
 
     # Custom Environment
     parser.add_argument('--early_stop', default=True, action='store_false', help='early stopping, if it no more get a better from training (default: True)')
     parser.add_argument('--task', type=str, default='Classification', help='task tpye (option: Classification, Segmentation, Generative (default: Classification))')
-
-    # Inference enviroment
-    parser.add_argument('--sample', type=int, default=3, help='count of sample image')
-    parser.add_argument('--output_size', type=int, nargs="+", default=[224,224], help='visualization output size (default: 32,32)')
 
     args = parser.parse_args()
     

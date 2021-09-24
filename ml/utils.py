@@ -10,6 +10,8 @@ import numpy as np
 from pathlib import Path
 from datetime import datetime
 
+HOST = "http://localhost:6006/"
+
 def seed_everything(seed):
   torch.manual_seed(seed)
   torch.cuda.manual_seed(seed)
@@ -39,7 +41,6 @@ def increment_path(path, exist_ok=False):
 
 def send_to_server(log):
     id = log["config"]["id"]
-    HOST = "http://49.50.163.245:6006/"
     API = f"api/v1/{id}/trainingProcess"
     url = HOST + API
 
@@ -51,7 +52,7 @@ def send_to_server(log):
         print(e)
 
 def request_state_training(id):
-    HOST = "http://49.50.163.245:6006/"
+
     API = f"api/v1/state/{id}/training"
     url = HOST + API
 
@@ -67,7 +68,7 @@ def request_state_training(id):
         print(e)
     
 def request_state_done(id):
-    HOST = "http://49.50.163.245:6006/"
+
     API = f"api/v1/state/{id}/done"
     url = HOST + API
     headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Accept': '*/*'}
@@ -82,7 +83,7 @@ def request_state_done(id):
         print(e)
 
 def temp_message(data):
-    HOST = "http://49.50.163.245:6006/"
+    
     API ="temp"
     url = HOST+API
     headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Accept': '*/*'}

@@ -2,10 +2,11 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-const drawChart = (chartId, data, iter, chartType, values) => {
+const drawChart = (chartId, epochs, iter, chartType, values) => {
   // chart configure
   var ctx = document.getElementById(chartId);
-  var epochs = data.config.hparam.epochs;
+  //var epochs = data.config.hparam.epochs;
+  var epochs = epochs;
   var labels = [];
 
   for (var i = 0; i < epochs; i ++){

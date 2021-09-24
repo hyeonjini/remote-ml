@@ -9,9 +9,48 @@
                 <h6 class="m-0 font-weight-bold">Options</h6>
             </div>
             <div class="card-body">
-
+                <div>
+                    <h4 class="mb-3">Configure</h4>
+                    <ul>
+                        <li>id: {{ configure.config.id }}</li>
+                        <li>model: {{ configure.config.name }}</li>
+                        <li>task: {{configure.config.task}}</li>
+                        <li>dataset: {{configure.config.dataset}}</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mb-3">Hyperparameter</h4>
+                    <ul>
+                        {% for name, item in configure.config.hparam %}
+                        <li>{{ name }}: {{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header">Chart</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="trainAccChart" width="100%" height="30"></canvas>
+                    </div>
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="trainLossChart" width="100%" height="30"></canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="valAccChart" width="100%" height="30"></canvas>
+                    </div>
+                    <div class="col-md-6 ml-md-auto">
+                        <canvas id="valLossChart" width="100%" height="30"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {% for name, item in inference.grad_cam %}
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -29,7 +68,23 @@
 {% endblock %}
 
 {% block script %}
+<script src="/js/trainingChart.js"></script>
 <script>
+
+    var trainIterAcc = "{{configure.train_iter.acc}}".split(',');
+    var trainIterLoss = "{{configure.train_iter.loss}}".split(',');
+    var valIterAcc = "{{configure.val_iter.acc}}".split(',');
+    var valIterLoss = "{{configure.val_iter.loss}}".split(',');
+    
+    // console.log(trainIterAcc, trainIterLoss, valIterAcc, valIterLoss);
+
+    var epochs = "{{configure.config.hparam.epochs}}";
+
+    var trainAccChart = drawChart("trainAccChart", epochs, "train", "acc", trainIterAcc);
+    var trainLossChart = drawChart("trainLossChart", epochs, "train", "loss", trainIterLoss);
+    var valAccChart = drawChart("valAccChart", epochs, "valid", "acc", valIterAcc);
+    var valLossChart = drawChart("valLossChart", epochs, "valid", "loss", valIterLoss);
+
 
 </script>
 {% endblock %}

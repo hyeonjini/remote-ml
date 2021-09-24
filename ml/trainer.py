@@ -13,7 +13,8 @@ def classification_training(args):
     utils.seed_everything(args.seed)
     save_dir = utils.increment_path(os.path.join(args.model_dir, args.name))
     os.mkdir(save_dir)
-    id = save_dir.split('/')[-1]
+    #id = save_dir.split('/')[-1]
+    id = save_dir.split(os.path.sep)[-1]
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 

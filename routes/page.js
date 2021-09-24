@@ -112,11 +112,12 @@ router.get('/api/v1/:id/details', async (req, res) => {
         var configureJsonData = JSON.parse(configureJsonFile);
         var inferJsonData = JSON.parse(inferJsonFile);
 
+        var jsonData = {
+            "inference":inferJsonData,
+            "configure":configureJsonData,
+        }
         //console.log(inferJsonData, configureJsonData);
-        res.render('details', {
-            "inference":inferJsonData, 
-            "configure": configureJsonData,
-        });
+        res.render('details', jsonData);
     }catch (err){
         console.error(err);
     }

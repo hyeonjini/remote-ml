@@ -225,10 +225,10 @@
 
     socket.on('update', (data) => {
         if (trainAccChart == null){
-            trainAccChart = drawChart("trainAccChart", data, "train", "acc", data.train_iter.acc);
-            trainLossChart = drawChart("trainLossChart", data, "train", "loss", data.train_iter.loss);
-            valAccChart = drawChart("valAccChart", data, "valid", "acc", data.val_iter.acc);
-            valLossChart = drawChart("valLossChart", data, "valid", "loss", data.val_iter.loss);
+            trainAccChart = drawChart("trainAccChart", data.config.hparam.epochs, "train", "acc", data.train_iter.acc);
+            trainLossChart = drawChart("trainLossChart", data.config.hparam.epochs, "train", "loss", data.train_iter.loss);
+            valAccChart = drawChart("valAccChart", data.config.hparam.epochs, "valid", "acc", data.val_iter.acc);
+            valLossChart = drawChart("valLossChart", data.config.hparam.epochs, "valid", "loss", data.val_iter.loss);
         }else{
             updateChart(trainAccChart, data.train_iter.acc);
             updateChart(trainLossChart, data.train_iter.loss);

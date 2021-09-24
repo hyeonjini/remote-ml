@@ -41,9 +41,9 @@ def generate_grad_cam(args, configure):
     # -- json
     result = {
         "grad_cam":{
-            "blending":[],
-            "heatmap":[],
             "original":[],
+            "heatmap":[],
+            "blending":[],
         }
     }
     # -- load sample image
@@ -101,7 +101,7 @@ if __name__ =="__main__":
 
     parser.add_argument('--path', type=str, help='a path of model for inference')
     parser.add_argument('--sample', type=int, default=3, help='count of sample image')
-    parser.add_argument('--output_size', type=int, nargs="+", default=[224,224], help='visualization output size (default: 32,32)')
+    parser.add_argument('--output_size', type=int, nargs="+", default=(224,224), help='visualization output size (default: 32,32)')
     args = parser.parse_args()
     print(args)
 
