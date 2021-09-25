@@ -1,2 +1,2 @@
 # remote-ml
-Remote model training for test with express frame work of node.js (experimental stage in MLOps pipeline)
+Remote model training for test(experimental stage in MLOps pipeline) with express frame work of node.js 
